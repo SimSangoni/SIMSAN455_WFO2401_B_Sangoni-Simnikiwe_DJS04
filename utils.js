@@ -6,7 +6,7 @@
  * @returns {DocumentFragment} - The document fragment containing the book previews.
  */
 
-export function renderBookList(books, start, end) {
+function renderBookList(books, start, end) {
     const fragment = document.createDocumentFragment();
     for (const { author, id, image, title } of books.slice(start, end)) {
         const bookPreview = document.createElement('book-preview');
@@ -24,7 +24,7 @@ export function renderBookList(books, start, end) {
  * Sets the theme of the application to either 'day' or 'night'.
  * @param {string} theme - The theme to set ('day' or 'night').
  */
-export function setTheme(theme) {
+function setTheme(theme) {
     if (theme === 'night') {
         document.documentElement.style.setProperty('--color-dark', '255, 255, 255');
         document.documentElement.style.setProperty('--color-light', '10, 10, 20');
@@ -41,7 +41,7 @@ export function setTheme(theme) {
  * @param {Object} options - The options object containing key-value pairs.
  * @param {string} firstOptionText - The text for the first option (default).
  */
-export function populateSelectElement(selectElement, options, firstOptionText) {
+function populateSelectElement(selectElement, options, firstOptionText) {
     const fragment = document.createDocumentFragment();
     const firstOption = document.createElement('option');
     firstOption.value = 'any';
@@ -55,3 +55,6 @@ export function populateSelectElement(selectElement, options, firstOptionText) {
     }
     selectElement.appendChild(fragment);
 }
+
+// Exporting the functions
+export { renderBookList, setTheme, populateSelectElement };
