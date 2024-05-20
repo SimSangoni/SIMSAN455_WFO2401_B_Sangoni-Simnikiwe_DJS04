@@ -1,5 +1,7 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
+
+
 // Creating a data object to store books, authors, genres, and the number of books per page
 const data = {
     books,
@@ -10,7 +12,11 @@ const data = {
 
 /**
  * Creates and returns an HTML element with specified attributes and inner HTML.
- * This function abstracts the element creation process, reducing repetition.
+ * @param {string} tag - The type of element to create.
+ * @param {string} [classNames] - The class names to add to the element.
+ * @param {Object} [attributes] - The attributes to set on the element.
+ * @param {string} [innerHTML] - The inner HTML content to add to the element.
+ * @returns {HTMLElement} The created element.
  */
 function createElement(tag, classNames, attributes, innerHTML) {
     const element = document.createElement(tag);
@@ -26,7 +32,10 @@ function createElement(tag, classNames, attributes, innerHTML) {
 
 /**
  * Renders a list of book previews from the specified range of books.
- * This function encapsulates the logic for creating and appending book elements to a document fragment.
+ * @param {Array} books - The array of book objects to render.
+ * @param {number} start - The start index of the range of books to render.
+ * @param {number} end - The end index of the range of books to render.
+ * @returns {DocumentFragment} The document fragment containing the rendered book previews.
  */
 function renderBookList(books, start, end) {
     const fragment = document.createDocumentFragment();
@@ -46,7 +55,7 @@ function renderBookList(books, start, end) {
 
 /**
  * Sets the theme of the application to either 'day' or 'night'.
- * This function abstracts the logic for setting theme-related CSS properties.
+  * @param {string} theme - The theme to set ('day' or 'night').
  */
 function setTheme(theme) {
     if (theme === 'night') {
@@ -61,7 +70,9 @@ function setTheme(theme) {
 
 /**
  * Populates a select element with options from a given object.
- * This function abstracts the process of populating select elements, reducing repetition.
+ * @param {HTMLSelectElement} selectElement - The select element to populate.
+ * @param {Object} options - The options to add to the select element.
+ * @param {string} firstOptionText - The text for the first option.
  */
 function populateSelectElement(selectElement, options, firstOptionText) {
     const fragment = document.createDocumentFragment();
