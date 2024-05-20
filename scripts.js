@@ -31,14 +31,13 @@ function createElement(tag, classNames, attributes, innerHTML) {
 function renderBookList(books, start, end) {
     const fragment = document.createDocumentFragment();
     for (const { author, id, image, title } of books.slice(start, end)) {
-        const element = createElement('button', 'preview', { 'data-preview': id }, `
-            <img class="preview__image" src="${image}" />
-            <div class="preview__info">
-                <h3 class="preview__title">${title}</h3>
-                <div class="preview__author">${data.authors[author]}</div>
-            </div>
-        `);
-        fragment.appendChild(element);
+        const bookPreview = createElement('book-preview', null, {
+            'data-author': data.authors[author],
+            'data-id': id,
+            'data-image': image,
+            'data-title': title
+        });
+        fragment.appendChild(bookPreview);
     }
     return fragment;
 }
