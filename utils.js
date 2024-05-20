@@ -49,7 +49,7 @@ export function populateSelectElement(selectElement, options, firstOptionText) {
     fragment.appendChild(firstOption);
     for (const [id, name] of Object.entries(options)) {
         const option = document.createElement('option');
-        option.value - id;
+        option.value = id;
         option.innerText = name;
         fragment.appendChild(option);
     }
