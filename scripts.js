@@ -2,6 +2,7 @@ import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 import { initEventListeners } from './eventListeners.js';
 import './BookPreview.js';
 
+
 initEventListeners();
 
 // Creating a data object to store books, authors, genres, and the number of books per page
