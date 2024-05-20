@@ -1,7 +1,11 @@
 /**
  * Renders a list of book previews from the specified range of books.
- * This function encapsulates the logic for creating and appending book elements to a document fragment.
+ * @param {Array} books - The array of books to render previews for.
+ * @param {number} start - The index to start rendering from.
+ * @param {number} end - The index to end rendering at.
+ * @returns {DocumentFragment} - The document fragment containing the book previews.
  */
+
 export function renderBookList(books, start, end) {
     const fragment = document.createDocumentFragment();
     for (const { author, id, image, title } of books.slice(start, end)) {
@@ -18,7 +22,7 @@ export function renderBookList(books, start, end) {
 
 /**
  * Sets the theme of the application to either 'day' or 'night'.
- * This function abstracts the logic for setting theme-related CSS properties.
+ * @param {string} theme - The theme to set ('day' or 'night').
  */
 export function setTheme(theme) {
     if (theme === 'night') {
@@ -33,7 +37,9 @@ export function setTheme(theme) {
 
 /**
  * Populates a select element with options from a given object.
- * This function abstracts the process of populating select elements, reducing repetition.
+ * @param {HTMLSelectElement} selectElement - The select element to populate.
+ * @param {Object} options - The options object containing key-value pairs.
+ * @param {string} firstOptionText - The text for the first option (default).
  */
 export function populateSelectElement(selectElement, options, firstOptionText) {
     const fragment = document.createDocumentFragment();
