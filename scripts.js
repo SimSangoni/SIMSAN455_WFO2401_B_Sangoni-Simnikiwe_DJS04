@@ -35,12 +35,12 @@ function createElement(tag, classNames, attributes, innerHTML) {
 function renderBookList(books, start, end) {
     const fragment = document.createDocumentFragment();
     for (const { author, id, image, title } of books.slice(start, end)) {
-        const bookPreview = createElement('book-preview', null, {
-            'data-author': data.authors[author],
+        const bookPreview = document.createElement('book-preview');
+        bookPreview.setAttribute('data-author', data.authors[author]);
+        bookPreview.setAttribute('data-author', data.authors[author]);
             'data-id': id,
             'data-image': image,
             'data-title': title
-        });
         fragment.appendChild(bookPreview);
     }
     return fragment;
