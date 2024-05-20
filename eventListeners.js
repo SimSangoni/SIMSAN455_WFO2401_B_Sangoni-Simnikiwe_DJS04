@@ -31,16 +31,9 @@ document.querySelector('[data-list-close]').addEventListener('click', () => {
 });
 
 
-// Handle settings form submission
-// This applies the selected theme and closes the settings overlay.
-document.querySelector('[data-settings-form]').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const { theme } = Object.fromEntries(formData);
-    setTheme(theme);
-    document.querySelector('[data-settings-overlay]').open = false;
-});
-
-
 
 }
+
+
+
+
