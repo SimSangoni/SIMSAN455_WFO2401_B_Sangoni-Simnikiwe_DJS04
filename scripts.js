@@ -37,10 +37,9 @@ function renderBookList(books, start, end) {
     for (const { author, id, image, title } of books.slice(start, end)) {
         const bookPreview = document.createElement('book-preview');
         bookPreview.setAttribute('data-author', data.authors[author]);
-        bookPreview.setAttribute('data-author', data.authors[author]);
-            'data-id': id,
-            'data-image': image,
-            'data-title': title
+        bookPreview.setAttribute('data-id', id);
+        bookPreview.setAttribute('data-image', image);
+        bookPreview.setAttribute('data-title', title)
         fragment.appendChild(bookPreview);
     }
     return fragment;
