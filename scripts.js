@@ -10,47 +10,6 @@ const data = {
     BOOKS_PER_PAGE
 };
 
-/**
- * Creates and returns an HTML element with specified attributes and inner HTML.
- * @param {string} tag - The type of element to create.
- * @param {string} [classNames] - The class names to add to the element.
- * @param {Object} [attributes] - The attributes to set on the element.
- * @param {string} [innerHTML] - The inner HTML content to add to the element.
- * @returns {HTMLElement} The created element.
- */
-function createElement(tag, classNames, attributes, innerHTML) {
-    const element = document.createElement(tag);
-    if (classNames) element.classList = classNames;
-    if (attributes) {
-        for (const [key, value] of Object.entries(attributes)) {
-            element.setAttribute(key, value);
-        }
-    }
-    if (innerHTML) element.innerHTML = innerHTML;
-    return element;
-}
-
-/**
- * Renders a list of book previews from the specified range of books.
- * @param {Array} books - The array of book objects to render.
- * @param {number} start - The start index of the range of books to render.
- * @param {number} end - The end index of the range of books to render.
- * @returns {DocumentFragment} The document fragment containing the rendered book previews.
- */
-function renderBookList(books, start, end) {
-    const fragment = document.createDocumentFragment();
-    for (const { author, id, image, title } of books.slice(start, end)) {
-        const element = createElement('button', 'preview', { 'data-preview': id }, `
-            <img class="preview__image" src="${image}" />
-            <div class="preview__info">
-                <h3 class="preview__title">${title}</h3>
-                <div class="preview__author">${data.authors[author]}</div>
-            </div>
-        `);
-        fragment.appendChild(element);
-    }
-    return fragment;
-}
 
 
 /**
