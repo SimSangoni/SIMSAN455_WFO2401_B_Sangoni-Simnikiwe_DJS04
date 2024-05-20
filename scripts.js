@@ -13,22 +13,6 @@ const data = {
 };
 
 /**
- * Creates and returns an HTML element with specified attributes and inner HTML.
- * This function abstracts the element creation process, reducing repetition.
- */
-function createElement(tag, classNames, attributes, innerHTML) {
-    const element = document.createElement(tag);
-    if (classNames) element.classList = classNames;
-    if (attributes) {
-        for (const [key, value] of Object.entries(attributes)) {
-            element.setAttribute(key, value);
-        }
-    }
-    if (innerHTML) element.innerHTML = innerHTML;
-    return element;
-}
-
-/**
  * Renders a list of book previews from the specified range of books.
  * This function encapsulates the logic for creating and appending book elements to a document fragment.
  */
