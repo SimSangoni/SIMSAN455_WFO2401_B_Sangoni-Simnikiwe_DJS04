@@ -67,7 +67,9 @@ function setTheme(theme) {
  */
 function populateSelectElement(selectElement, options, firstOptionText) {
     const fragment = document.createDocumentFragment();
-    const firstOption = createElement('option', null, { value: 'any' }, firstOptionText);
+    const firstOption = document.createElement('option');
+    firstOption.value = 'any';
+    firstOption.innerText = firstOptionText;
     fragment.appendChild(firstOption);
     for (const [id, name] of Object.entries(options)) {
         const option = createElement('option', null, { value: id }, name);
