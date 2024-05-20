@@ -1,7 +1,5 @@
 import { books, authors, genres, BOOKS_PER_PAGE } from './data.js'
 
-
-
 // Creating a data object to store books, authors, genres, and the number of books per page
 const data = {
     books,
@@ -10,125 +8,45 @@ const data = {
     BOOKS_PER_PAGE
 };
 
-class BookPreview extends HTMLElement {
-    constructor() {
-        super();
-        const shadow = this.attachShadow({ mode: 'open' });
-
-        const container = document.createElement('div');
-        container.classList.add('preview');
-
-        const style = document.createElement('style');
-        style.textContent = `
-        .preview {
-            border-width: 0;
-            width: 100%;
-            font-family: Roboto, sans-serif;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            text-align: left;
-            border-radius: 8px;
-            border: 1px solid rgba(var(--color-dark), 0.15);
-            background: rgba(var(--color-light), 1);
+/**
+ * Creates and returns an HTML element with specified attributes and inner HTML.
+ * This function abstracts the element creation process, reducing repetition.
+ */
+function createElement(tag, classNames, attributes, innerHTML) {
+    const element = document.createElement(tag);
+    if (classNames) element.classList = classNames;
+    if (attributes) {
+        for (const [key, value] of Object.entries(attributes)) {
+            element.setAttribute(key, value);
         }
-          
-        @media (min-width: 60rem) {
-        .preview {
-            padding: 1rem;
-        }
-        }
-        
-        .preview_hidden {
-            display: none;
-        }
-        
-        .preview:hover {
-            background: rgba(var(--color-blue), 0.05);
-        }
-        
-        .preview__image {
-            width: 48px;
-            height: 70px;
-            object-fit: cover;
-            background: grey;
-            border-radius: 2px;
-            box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-                0px 1px 1px 0px rgba(0, 0, 0, 0.1), 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
-        }
-        
-        .preview__info {
-            padding: 1rem;
-        }
-        
-        .preview__title {
-            margin: 0 0 0.5rem;
-            font-weight: bold;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;  
-            overflow: hidden;
-            color: rgba(var(--color-dark), 0.8)
-        }
-        
-        .preview__author {
-            color: rgba(var(--color-dark), 0.4);
-        }
-        `;
-
-        const img = document.createElement('img');
-        img.classList.add('preview__image');
-        img.src = this.getAttribute('image');
-        container.appendChild(img);
-
-        const info = document.createElement('div');
-        info.classList.add('preview__info');
-
-        const title = document.createElement('h3');
-        title.classList.add('preview__title');
-        title.textContent = this.getAttribute('title');
-        info.appendChild(title);
-
-        const author = document.createElement('div');
-        author.classList.add('preview__author');
-        author.textContent = this.getAttribute('author');
-        info.appendChild(author);
-
-        container.appendChild(info);
-        shadow.appendChild(style);
-        shadow.appendChild(container);
     }
+    if (innerHTML) element.innerHTML = innerHTML;
+    return element;
 }
 
-customElements.define('book-preview', BookPreview);
-
-
-class BookList extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
+/**
+ * Renders a list of book previews from the specified range of books.
+ * This function encapsulates the logic for creating and appending book elements to a document fragment.
+ */
+function renderBookList(books, start, end) {
+    const fragment = document.createDocumentFragment();
+    for (const { author, id, image, title } of books.slice(start, end)) {
+        const element = createElement('button', 'preview', { 'data-preview': id }, `
+            <img class="preview__image" src="${image}" />
+            <div class="preview__info">
+                <h3 class="preview__title">${title}</h3>
+                <div class="preview__author">${data.authors[author]}</div>
+            </div>
+        `);
+        fragment.appendChild(element);
     }
-
-    connectedCallback() {
-        const books = JSON.parse(this.getAttribute('books'));
-        books.forEach(book => {
-            const bookPreview = document.createElement('book-preview');
-            bookPreview.setAttribute('image', book.image);
-            bookPreview.setAttribute('title', book.title);
-            bookPreview.setAttribute('author', book.author);
-            this.shadowRoot.appendChild(bookPreview);
-        });
-    }
+    return fragment;
 }
-
-customElements.define('book-list', BookList);
-
 
 
 /**
  * Sets the theme of the application to either 'day' or 'night'.
-  * @param {string} theme - The theme to set ('day' or 'night').
+ * This function abstracts the logic for setting theme-related CSS properties.
  */
 function setTheme(theme) {
     if (theme === 'night') {
@@ -143,9 +61,7 @@ function setTheme(theme) {
 
 /**
  * Populates a select element with options from a given object.
- * @param {HTMLSelectElement} selectElement - The select element to populate.
- * @param {Object} options - The options to add to the select element.
- * @param {string} firstOptionText - The text for the first option.
+ * This function abstracts the process of populating select elements, reducing repetition.
  */
 function populateSelectElement(selectElement, options, firstOptionText) {
     const fragment = document.createDocumentFragment();
