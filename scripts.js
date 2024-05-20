@@ -69,30 +69,27 @@ function populateSelectElement(selectElement, options, firstOptionText) {
 let page = 1;
 let matches = data.books;
 
-// Initial render of books
 // This renders the initial set of book previews based on the first page.
 document.querySelector('[data-list-items]').appendChild(renderBookList(matches, 0, data.BOOKS_PER_PAGE));
 
-// Populate genres and authors select elements
 // This fills the genre and author select elements with options from the data.
 populateSelectElement(document.querySelector('[data-search-genres]'), data.genres, 'All Genres');
 populateSelectElement(document.querySelector('[data-search-authors]'), data.authors, 'All Authors');
 
-// Set theme based on user preference
 // This checks the user's preferred color scheme and sets the theme accordingly.
 const prefersDarkScheme = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 const theme = prefersDarkScheme ? 'night' : 'day';
 setTheme(theme);
 document.querySelector('[data-settings-theme]').value = theme;
 
-// Update the show more button text
+
 // This updates the 'Show more' button text and its disabled state.
 const listButton = document.querySelector('[data-list-button]');
 listButton.innerText = `Show more (${data.books.length - data.BOOKS_PER_PAGE})`;
 listButton.disabled = matches.length - (page * data.BOOKS_PER_PAGE) > 0;
 
 
-// Handle search form submission
+
 // This filters the books based on search criteria and updates the book list.
 document.querySelector('[data-search-form]').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -138,7 +135,7 @@ document.querySelector('[data-search-form]').addEventListener('submit', (event) 
     document.querySelector('[data-search-overlay]').open = false;
 });
 
-// Handle "Show more" button click
+
 // This loads more book previews and appends them to the book list.
 listButton.addEventListener('click', () => {
     const fragment = renderBookList(matches, page * data.BOOKS_PER_PAGE, (page + 1) * data.BOOKS_PER_PAGE);
@@ -146,7 +143,7 @@ listButton.addEventListener('click', () => {
     page += 1;
 });
 
-// Handle book preview click
+
 // This opens the detailed view of the clicked book.
 document.querySelector('[data-list-items]').addEventListener('click', (event) => {
     const pathArray = Array.from(event.path || event.composedPath());
