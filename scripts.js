@@ -72,7 +72,9 @@ function populateSelectElement(selectElement, options, firstOptionText) {
     firstOption.innerText = firstOptionText;
     fragment.appendChild(firstOption);
     for (const [id, name] of Object.entries(options)) {
-        const option = createElement('option', null, { value: id }, name);
+        const option = document.createElement('option');
+        option.value - id;
+        option.innerText = name;
         fragment.appendChild(option);
     }
     selectElement.appendChild(fragment);
